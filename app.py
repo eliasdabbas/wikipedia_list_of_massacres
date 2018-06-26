@@ -12,7 +12,10 @@ from dash.dependencies import Input, Output
 from plotly.offline import iplot, plot
 import plotly.graph_objs as go
 import pandas as pd
+import logging
 
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s==%(funcName)s==%(message)s')
 
 massacres_df = pd.read_csv('massacres.csv')
 massacres_df['date'] = [datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S') for x in massacres_df['date']]
@@ -76,23 +79,18 @@ app.layout = html.Div([
                      multi=True,
                      value=tuple(),
                      placeholder='Select countries or cities',
-
                      options=[{'label': loc, 'value': loc}
                               for loc in sorted(all_locations)]),
-
         dcc.Graph(id='incident_by_date',
                   config={'displayModeBar': False}),
-
-    
 ], style={'background-color': '#eeeeee'})
-
-    
 
 
 @app.callback(Output('bubble_chart', 'figure'),
              [Input('from_year', 'value'),
               Input('to_year', 'value')])
 def filter_date(fromyear, toyear):
+    logging.info(msg=locals())
     massacres_df = pd.read_csv('massacres.csv')
     massacres_df['date'] = [datetime.datetime.strptime(x, '%Y-%m-%d %H:%M:%S') for x in massacres_df['date']]
     massacres_df = massacres_df[massacres_df['lat_clean'].notna()].reset_index(drop=True)
@@ -140,7 +138,7 @@ def filter_date(fromyear, toyear):
 @app.callback(Output('incident_by_date', 'figure'),
               [Input('loc_select', 'value')])
 def plot_locations(locations):
-   
+    logging.info(msg=locals())
     return {'data':
             [go.Scatter(x=massacres_df[massacres_df['location'].str.contains(loc)]['date'],
                         y=massacres_df[massacres_df['location'].str.contains(loc)]['deaths'],
@@ -172,8 +170,5 @@ def plot_locations(locations):
                                  }),
            'config': {'displayModeBar': False}}
 
-
-
-
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server()
