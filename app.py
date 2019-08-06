@@ -111,7 +111,7 @@ def filter_date(fromyear, toyear):
                                               'outlinecolor': '#eeeeee'}},
 
                          hoverinfo='text',
-                         hoverlabel={'font': {'size': 15}, 'bgcolor': {'opacity': '0.5'}},
+                         hoverlabel={'font': {'size': 15}}, #, 'bgcolor': {'opacity': '0.5'}},
                          hovertext=massacres_df['name'] + '<br>' + 'Deaths: ' + 
                          [f'{x:,}' for x in massacres_df['deaths']] + '<br>' +
                          massacres_df['location'] + ' ' + 
@@ -131,7 +131,7 @@ def filter_date(fromyear, toyear):
                       'showocean': True,
                       'showcoastlines': True, 'showframe': False,
                       'coastlinecolor': '#cccccc',
-                      'projection': {'type': 'Mercator'}, # 'scale': 1.15},
+                      'projection': {'type': 'mercator'}, # 'scale': 1.15},
                       }
           })}
 
