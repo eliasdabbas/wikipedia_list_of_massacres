@@ -63,7 +63,7 @@ app.layout = html.Div([
         html.Br(),
 
         dcc.Graph(id='bubble_chart',
-                  config={'displayModeBar': False, 'frameMargins': '90%'},
+                  config={'displayModeBar': False}, # 'frameMargins': '90%'},
                  ),
 
         html.Br(),
@@ -120,9 +120,9 @@ def filter_date(fromyear, toyear):
                  )],
 
           'layout': go.Layout({
-              'title': 'Massacres of the World ' + str(fromyear) + ' - ' + str(toyear) +  '   Wikipedia',
+              'title': 'Massacres of the World ' + str(fromyear) + ' - ' + str(toyear) + '   Wikipedia',
               'font': {'family': 'palatino'}, 'titlefont': {'size': 30},
-              'width': 1400, 'height': 700,
+              'height': 650, # 'width': 1400,
               'paper_bgcolor': '#eeeeee',
               'geo': {'showland': True, 'landcolor': '#eeeeee',
                       'countrycolor': '#cccccc', 
@@ -131,7 +131,7 @@ def filter_date(fromyear, toyear):
                       'showocean': True,
                       'showcoastlines': True, 'showframe': False,
                       'coastlinecolor': '#cccccc',
-                      'projection': {'type': 'mercator'}, # 'scale': 1.15},
+                      # 'projection': {'type': 'natural earth'}, # 'scale': 1.15},
                       }
           })}
 
